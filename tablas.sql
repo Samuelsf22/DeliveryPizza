@@ -1,4 +1,3 @@
-
 drop table Pizza;
 create table if not exists Pizza(
     id varchar(6) not null ,
@@ -19,10 +18,6 @@ create table if not exists cliente(
     primary key (id),
     unique u_email(email)
 );
-select id, nombre, apellidos from cliente where email = ?;
-insert into cliente (nombre, apellidos, email, contraseña) VALUES ('Marco', 'De la Rosa', '123@gmail.com', aes_encrypt('12345678','cliente_pz2026'));
-UPDATE cliente SET contraseña = aes_encrypt(?,?) WHERE id = ?;
-select * from cliente;
 
 drop table if exists pedido;
 create table if not exists pedido(
@@ -33,8 +28,6 @@ create table if not exists pedido(
     primary key (id),
     constraint id_cliente foreign key (id_cliente)   references cliente (id)
 );
-insert into pedido (id_cliente, fecha, total) VALUES (?,CONVERT_TZ(NOW(), '+00:00', '-05:00'),?);
-select * from pedido;
 
 drop table if exists detalle_pedidos;
 create table if not exists detalle_pedidos (
@@ -47,9 +40,3 @@ create table if not exists detalle_pedidos (
     primary key (id),
     constraint id_pedido_fk FOREIGN KEY (id_pedido) references pedido(id)
 );
-delete from detalle_pedidos;
-delete from pedido;
-delete from pedido where id = ?;
-
-select * from pedido;
-select * from detalle_pedidos;
